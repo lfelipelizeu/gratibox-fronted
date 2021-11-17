@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import UserContext from '../contexts/UserContexts.js';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Home() {
@@ -18,8 +18,8 @@ export default function Home() {
             <Welcome>Bem vindo ao <strong>GratiBox</strong></Welcome>
             <Description>Receba em casa um box com chás, produtos organicos, incensos e muito mais...</Description>
             <Image src='https://raw.githubusercontent.com/driven-exercises/Projeto-GratiBox/main/image05.webp' alt='Home' />
-            <SignUpButton>Quero começar</SignUpButton>
-            <LogInButton>Já sou grato</LogInButton>
+            <SignUpButton onClick={() => history.push('/signup')}>Quero começar</SignUpButton>
+            <LogInButton onClick={() => history.push('/login')}>Já sou grato</LogInButton>
             <Footer />
         </Containter>
     );
