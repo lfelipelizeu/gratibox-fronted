@@ -3,6 +3,7 @@ import UserContext from '../contexts/UserContexts.js';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import GlobalStyle from '../styles/GlobalStyle.js';
 import Home from './Home.js';
+import SignUp from './SignUp.js';
 
 export default function App() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -12,7 +13,8 @@ export default function App() {
             <BrowserRouter>
             <GlobalStyle />
                 <Switch>
-                    <Route path="/home" component={Home} exact />
+                    <Route path='/home' component={Home} exact />
+                    <Route path='/signup' component={SignUp} exact />
                 </Switch>
             </BrowserRouter>
         </UserContext.Provider>
