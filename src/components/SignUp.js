@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import UserContext from '../contexts/UserContexts.js';
 import { useHistory } from 'react-router-dom';
+import { signUp } from '../services/gratibox.js';
 import styled from 'styled-components';
 
 export default function Home() {
@@ -17,10 +18,37 @@ export default function Home() {
         }
     }, [user, history]);
 
+    async function submitSignUp(event) {
+        event.preventDefault();
+
+        const body = {
+            name,
+            email,
+            password,
+            repeatPassword,
+        };
+
+        if (password !== repeatPassword) return alert('As senhas devem coincidir!');
+        if (password.length < 5) return alert('A senha deve ter entre 5 e 16 caracteres alfanuméricos!');
+
+        try {
+            await signUp(body);
+            alert('Cadatrado com sucesso!');
+            return history.push('/login');
+        } catch (error) {
+            const { status } = error.response;
+
+            if (status === 400) return alert('Dados inválidos');
+            if (status === 409) return alert('Email já cadastrado!');
+            if (!status) return alert('Servidor offline!');
+            return alert('Erro desconhecido');
+        }
+    }
+
     return (
         <Containter>
             <Welcome>Bem vindo ao <strong>GratiBox</strong></Welcome>
-            <FormBox>
+            <FormBox onSubmit={submitSignUp}>
                 <Input
                     type='text'
                     placeholder='Nome'
@@ -68,10 +96,6 @@ const Containter = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    & button {
-        
-    }
 `
 
 const Welcome = styled.h1`
