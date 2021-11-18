@@ -1,10 +1,14 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import UserContext from '../contexts/UserContexts.js';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Home() {
     const { user } = useContext(UserContext);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [repeatPassword, setRepeatPassword] = useState('');
     const history = useHistory();
 
     useEffect(() => {
@@ -20,24 +24,32 @@ export default function Home() {
                 <Input
                     type='text'
                     placeholder='Nome'
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
                     required
                 />
                 <Input
                     type='email'
                     placeholder='Email'
                     required
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
                 />
                 <Input
                     type='password'
                     placeholder='Senha'
                     maxLength='16'
                     required
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
                 />
                 <Input
                     type='password'
                     placeholder='Confirmar senha'
                     maxLength='16'
                     required
+                    value={repeatPassword}
+                    onChange={(event) => setRepeatPassword(event.target.value)}
                 />
                 <Button type='submit'>
                     Cadastrar
