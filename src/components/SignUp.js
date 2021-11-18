@@ -10,6 +10,7 @@ export default function Home() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
@@ -31,17 +32,20 @@ export default function Home() {
         if (password !== repeatPassword) return alert('As senhas devem coincidir!');
         if (password.length < 5) return alert('A senha deve ter entre 5 e 16 caracteres alfanuméricos!');
 
+        setLoading(true);
         try {
             await signUp(body);
-            alert('Cadatrado com sucesso!');
+            alert('Cadastrado com sucesso!');
+            setLoading(false);
             return history.push('/login');
         } catch (error) {
             const { status } = error.response;
+            setLoading(false);
 
             if (status === 400) return alert('Dados inválidos');
             if (status === 409) return alert('Email já cadastrado!');
             if (!status) return alert('Servidor offline!');
-            return alert('Erro desconhecido');
+            return alert('Erro desconhecido'); 
         }
     }
 
@@ -54,32 +58,36 @@ export default function Home() {
                     placeholder='Nome'
                     value={name}
                     onChange={(event) => setName(event.target.value)}
+                    disabled={loading}
                     required
                 />
                 <Input
                     type='email'
                     placeholder='Email'
-                    required
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
+                    disabled={loading}
+                    required
                 />
                 <Input
                     type='password'
                     placeholder='Senha'
                     maxLength='16'
-                    required
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
+                    disabled={loading}
+                    required
                 />
                 <Input
                     type='password'
                     placeholder='Confirmar senha'
                     maxLength='16'
-                    required
                     value={repeatPassword}
                     onChange={(event) => setRepeatPassword(event.target.value)}
+                    disabled={loading}
+                    required
                 />
-                <Button type='submit'>
+                <Button type='submit' disabled={loading}>
                     Cadastrar
                 </Button>
             </FormBox>
@@ -141,4 +149,5 @@ const Button = styled.button`
     border-radius: 10px;
     background-color: #8c97ea;
     margin-top: 54px;
+    filter: ${({ disabled }) => disabled ? 'brightness(0.9)' : 'none'};
 `;
