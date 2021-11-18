@@ -39,7 +39,7 @@ export default function Home() {
             setLoading(false);
             return history.push('/login');
         } catch (error) {
-            const { status } = error.response;
+            const status = error.response?.status;
             setLoading(false);
 
             if (status === 400) return alert('Dados inválidos');
