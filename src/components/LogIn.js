@@ -8,6 +8,7 @@ export default function Home() {
     const { user, setUser } = useContext(UserContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
@@ -24,14 +25,17 @@ export default function Home() {
             password,
         };
 
+        setLoading(true);
         try {
             const response = await logIn(body);
             const loggedUser = response.data;
             setUser(loggedUser);
             localStorage.setItem('user', JSON.stringify(loggedUser));
+            setLoading(false);
             return history.push('/');
         } catch (error) {
             const status = error.response?.status;
+            setLoading(false);
 
             if (status === 404) return alert('Email inválido!');
             if (status === 401) return alert('Senha incorreta!');
@@ -49,6 +53,7 @@ export default function Home() {
                     placeholder='Email'
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
+                    disabled={loading}
                     required
                 />
                 <Input
@@ -56,13 +61,14 @@ export default function Home() {
                     placeholder='Senha'
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
+                    disabled={loading}
                     required
                 />
-                <LogInButton type='submit'>
+                <LogInButton type='submit' disabled={loading}>
                     Login
                 </LogInButton>
             </FormBox>
-            <SignUpButton>Ainda não sou grato</SignUpButton>
+            <SignUpButton disabled={loading}>Ainda não sou grato</SignUpButton>
         </Containter>
     );
 }
@@ -121,6 +127,7 @@ const LogInButton = styled.button`
     border-radius: 10px;
     background-color: #8c97ea;
     margin-top: 150px;
+    filter: ${({ disabled }) => disabled ? 'brightness(0.9)' : 'none'};
 `;
 
 const SignUpButton = styled.button`
@@ -132,4 +139,5 @@ const SignUpButton = styled.button`
     font-weight: 700;
     background-color: transparent;
     margin-top: 10px;
+    filter: ${({ disabled }) => disabled ? 'brightness(0.9)' : 'none'};
 `;
