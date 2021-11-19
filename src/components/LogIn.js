@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import UserContext from '../contexts/UserContexts.js';
 import { useHistory } from 'react-router-dom';
+import { logIn } from '../services/gratibox.js';
 import styled from 'styled-components';
 
 export default function Home() {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
@@ -15,10 +16,34 @@ export default function Home() {
         }
     }, [user, history]);
 
+    async function submitLogIn(event) {
+        event.preventDefault();
+
+        const body = {
+            email,
+            password,
+        };
+
+        try {
+            const response = await logIn(body);
+            const loggedUser = response.data;
+            setUser(loggedUser);
+            localStorage.setItem('user', JSON.stringify(loggedUser));
+            return history.push('/');
+        } catch (error) {
+            const status = error.response?.status;
+
+            if (status === 404) return alert('Email inválido!');
+            if (status === 401) return alert('Senha incorreta!');
+            if (!status) return alert('Servidor offline!');
+            return alert('Erro desconhecido'); 
+        }
+    } 
+
     return (
         <Containter>
             <Welcome>Bem vindo ao <strong>GratiBox</strong></Welcome>
-            <FormBox>
+            <FormBox onSubmit={submitLogIn}>
                 <Input
                     type='email'
                     placeholder='Email'
