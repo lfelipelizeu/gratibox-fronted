@@ -1,6 +1,18 @@
+import { useContext, useEffect } from 'react';
+import UserContext from '../contexts/UserContexts.js';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Home() {
+    const { user } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (user) {
+            return history.push('/');
+        }
+    }, [user, history]);
+
     return (
         <Containter>
             <Welcome>Bem vindo ao <strong>GratiBox</strong></Welcome>
