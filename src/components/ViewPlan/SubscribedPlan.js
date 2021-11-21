@@ -1,7 +1,14 @@
 import { PlanBox, ImgBox, SubscribeButton } from '../../styles/ViewPlanStyles.js';
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 
-export default function SubscribedPlan() {
+export default function SubscribedPlan({ planDetails }) {
+    const { plan, subscriptionDate, nextDeliveries, items } = planDetails;
+
+    function dateFormat(date) {
+        return dayjs(date).format('DD/MM/YY');
+    }
+
     return (
         <>
             <Box>
@@ -10,24 +17,20 @@ export default function SubscribedPlan() {
                 </NewImgBox>
                 <PlanDetails>
                     <Detail>
-                        Plano: <span>@tipo_de_plano</span>
+                        Plano: <span>{plan}</span>
                     </Detail>
                     <Detail>
-                        Data da assinatura: <span>dd/mm/aa</span>
+                        Data da assinatura: <span>{dateFormat(subscriptionDate)}</span>
                     </Detail>
                     <Detail>
                         Próximas entregas:
                         <DeliveriesDates>
-                            <li>dd/mm/aa</li>
-                            <li>dd/mm/aa</li>
-                            <li>dd/mm/aa</li>
+                            {nextDeliveries.map((delivery) => <li>{dateFormat(delivery)}</li>)}
                         </DeliveriesDates>
                     </Detail>
                 </PlanDetails>
                 <DeliveryItems>
-                    <li>Chás</li>
-                    <li>Produtos organicos</li>
-                    <li>Incensos</li>
+                    {items.map((item) => <li>{item}</li>)}
                 </DeliveryItems>
             </Box>
             <RateButton>
