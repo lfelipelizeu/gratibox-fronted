@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import UserContext from '../../contexts/UserContexts.js';
+import { useHistory } from 'react-router-dom';
 import { getPlan } from '../../services/gratibox.js';
 import WeeklyPlan from './WeeklyPlan.js';
 import MonthlyPlan from './MonthlyPlan.js';
@@ -7,19 +8,35 @@ import SubscribedPlan from './SubscribedPlan.js';
 import styled from 'styled-components';
 
 export default function ViewPlan() {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [planDetails, setPlanDetails] = useState();
+    const history = useHistory();
 
     useEffect(() => {
+        if (!user) {
+            alert('Você não está logado!');
+            return history.push('/home');
+        }
+
         getPlan(user.token)
             .then((response) => setPlanDetails(response.data))
-            .catch((error) => alert('Erro ao buscar o plano!'));
-    }, [user]);
+            .catch((error) => {
+                if (error.response.status === 401 || error.response.status === 500) {
+                    alert('Sessão inválida! Por favor faça o login novamente!');
+                    localStorage.removeItem('user');
+                    setUser();
+                    return history.push('/login');
+                } else {
+                    return alert('Erro ao buscar o plano!');
+                }
+            });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>
             <Container>
-                <WelcomeUser>Bom te ver por aqui, {user.name.split(' ')[0]}.</WelcomeUser>
+                <WelcomeUser>Bom te ver por aqui, {user?.name.split(' ')[0]}.</WelcomeUser>
                 <Quote>
                     {planDetails?.plan ? '“Agradecer é arte de atrair coisas boas”' : 'Você ainda não assinou um plano, que tal começar agora?'}
                 </Quote>
