@@ -33,7 +33,7 @@ export default function SubscribedPlan({ planDetails }) {
                     {items.map((item) => <li>{item}</li>)}
                 </DeliveryItems>
             </Box>
-            <RateButton>
+            <RateButton onClick={() => alert('Disponível em breve!')}>
                 Avaliar entregas
             </RateButton>
         </>
