@@ -25,12 +25,12 @@ export default function SubscribedPlan({ planDetails }) {
                     <Detail>
                         Próximas entregas:
                         <DeliveriesDates>
-                            {nextDeliveries.map((delivery) => <li>{dateFormat(delivery)}</li>)}
+                            {nextDeliveries.map((delivery, index) => <li key={index}>{dateFormat(delivery)}</li>)}
                         </DeliveriesDates>
                     </Detail>
                 </PlanDetails>
                 <DeliveryItems>
-                    {items.map((item) => <li>{item}</li>)}
+                    {items.map((item, index) => <li key={index}>{item}</li>)}
                 </DeliveryItems>
             </Box>
             <RateButton onClick={() => alert('Disponível em breve!')}>
