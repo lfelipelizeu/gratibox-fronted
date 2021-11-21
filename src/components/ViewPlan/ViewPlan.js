@@ -38,9 +38,9 @@ export default function ViewPlan() {
             <Container>
                 <WelcomeUser>Bom te ver por aqui, {user?.name.split(' ')[0]}.</WelcomeUser>
                 <Quote>
-                    {planDetails?.plan ? '“Agradecer é arte de atrair coisas boas”' : 'Você ainda não assinou um plano, que tal começar agora?'}
+                    {planDetails ? (planDetails?.plan ? '“Agradecer é arte de atrair coisas boas”' : 'Você ainda não assinou um plano, que tal começar agora?') : null}
                 </Quote>
-                {planDetails?.plan ? <SubscribedPlan planDetails={planDetails} /> : <WeeklyPlan />}
+                {planDetails ? (planDetails?.plan ? <SubscribedPlan planDetails={planDetails} /> : <WeeklyPlan />) : null}
             </Container>
             {planDetails?.plan ? null : (<Container><MonthlyPlan /></Container>)}
         </>
