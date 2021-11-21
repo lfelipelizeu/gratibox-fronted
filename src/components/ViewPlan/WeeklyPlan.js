@@ -1,6 +1,9 @@
 import { PlanBox, ImgBox, PlanDescription, SubscribeButton } from '../../styles/ViewPlanStyles.js';
+import { useHistory } from 'react-router-dom';
 
 export default function WeeklyPlan() {
+    const history = useHistory();
+
     return (
         <PlanBox>
             <ImgBox>
@@ -9,7 +12,7 @@ export default function WeeklyPlan() {
             <PlanDescription>
                 Você recebe um box por semana. Ideal para quem quer exercer a gratidão todos os dias.
             </PlanDescription>
-            <SubscribeButton>
+            <SubscribeButton onClick={() => history.push('/subscribe/weekly')}>
                 Assinar
             </SubscribeButton>
         </PlanBox>

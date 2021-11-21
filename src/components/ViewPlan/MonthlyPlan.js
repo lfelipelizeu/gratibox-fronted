@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import { PlanBox, ImgBox, PlanDescription, SubscribeButton } from '../../styles/ViewPlanStyles.js';
+import { useHistory } from 'react-router-dom';
 
 export default function WeeklyPlan() {
+    const history = useHistory();
+
     return (
         <PlanBox>
             <ImgBox>
@@ -13,7 +16,7 @@ export default function WeeklyPlan() {
             <Description>
                 Ideal para quem está começando agora.
             </Description>
-            <SubscribeButton>
+            <SubscribeButton onClick={() => history.push('/subscribe/monthly')}>
                 Assinar
             </SubscribeButton>
         </PlanBox>
