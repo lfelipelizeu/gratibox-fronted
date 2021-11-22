@@ -1,9 +1,19 @@
 import styled from 'styled-components';
+import { useContext } from 'react';
+import NewSubscriptionContext from '../../contexts/NewSubscriptionContext.js';
 import { PlanBox, ImgBox, PlanDescription, SubscribeButton } from '../../styles/ViewPlanStyles.js';
 import { useHistory } from 'react-router-dom';
 
 export default function WeeklyPlan() {
+    const { setNewSubscription } = useContext(NewSubscriptionContext);
     const history = useHistory();
+
+    function startNewSubscription() {
+        setNewSubscription({
+            plan: 'Mensal',
+        });
+        return history.push('/subscribe');
+    }
 
     return (
         <PlanBox>
@@ -16,7 +26,7 @@ export default function WeeklyPlan() {
             <Description>
                 Ideal para quem está começando agora.
             </Description>
-            <SubscribeButton onClick={() => history.push('/subscribe/monthly')}>
+            <SubscribeButton onClick={startNewSubscription}>
                 Assinar
             </SubscribeButton>
         </PlanBox>

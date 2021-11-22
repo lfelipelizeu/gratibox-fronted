@@ -15,12 +15,12 @@ export default function Plans({ opened, openBox, planOption, deliveryDay, setDel
             </BoxHeader>
             {opened[1] ? (<Options onChange={(event) => chooseDay(Number(event.target.value))}>
                         <input type='radio' id='dia1' name='day' value={1} defaultChecked={deliveryDay === 1} />
-                        <label htmlFor='dia1'>{planOption === 'weekly' ? 'Segunda' : 'Dia 1'}</label>
-                        <input type='radio' id='dia10' name='day' value={planOption === 'weekly' ? 3 : 10} defaultChecked={deliveryDay === 3 || deliveryDay === 10} />
-                        <label htmlFor='dia10'>{planOption === 'weekly' ? 'Quarta' : 'Dia 10'}</label>
+                        <label htmlFor='dia1'>{planOption === 'Semanal' ? 'Segunda' : 'Dia 1'}</label>
+                        <input type='radio' id='dia10' name='day' value={planOption === 'Semanal' ? 3 : 10} defaultChecked={deliveryDay === 3 || deliveryDay === 10} />
+                        <label htmlFor='dia10'>{planOption === 'Semanal' ? 'Quarta' : 'Dia 10'}</label>
                     <div>
-                        <input type='radio' id='dia20' name='day' value={planOption === 'weekly' ? 5 : 20} defaultChecked={deliveryDay === 5 || deliveryDay === 20} />
-                        <label htmlFor='dia20'>{planOption === 'weekly' ? 'Sexta' : 'Dia 20'}</label>
+                        <input type='radio' id='dia20' name='day' value={planOption === 'Semanal' ? 5 : 20} defaultChecked={deliveryDay === 5 || deliveryDay === 20} />
+                        <label htmlFor='dia20'>{planOption === 'Semanal' ? 'Sexta' : 'Dia 20'}</label>
                     </div>
             </Options>) : null}
         </Box>

@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../contexts/UserContexts.js';
 import NewSubscriptionContext from '../../contexts/NewSubscriptionContext.js';
@@ -10,11 +9,10 @@ import Items from './Items.js';
 import styled from 'styled-components';
 
 export default function Subscribe() {
-    const { plan } = useParams();
     const { user } = useContext(UserContext);
-    const { setNewSubscription } = useContext(NewSubscriptionContext);
+    const { newSubscription, setNewSubscription } = useContext(NewSubscriptionContext);
     const [opened, setOpened] = useState([false, true, false]);
-    const [planOption, setPlanOption] = useState(plan);
+    const [planOption, setPlanOption] = useState(newSubscription?.plan);
     const [deliveryDay, setDeliveryDay] = useState();
     const [items, setItems] = useState([]);
     const history = useHistory();
@@ -24,6 +22,7 @@ export default function Subscribe() {
             alert('Você não está logado!');
             return history.push('/home');
         }
+        if (!newSubscription) return history.push('/');
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -44,7 +43,7 @@ export default function Subscribe() {
         }
 
         const subscription = {
-            planOption,
+            plan: planOption,
             deliveryDay,
             items,
         };
