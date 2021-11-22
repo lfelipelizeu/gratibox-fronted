@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { AiOutlineArrowDown as DownArrow } from 'react-icons/ai';
 
-export default function Plans() {
+export default function Plans({ opened, openBox, deliveryDay, setDeliveryDay }) {
     return (
         <Box>
-            <BoxHeader>
+            <BoxHeader opened={opened[1]} onClick={() => openBox(1)}>
                 Entrega
-                <DownArrow style={{ fontSize: '35px' }} />
+                {opened[1] ? null : <DownArrow style={{ fontSize: '35px' }} />}
             </BoxHeader>
-            <Options>
+            {opened[1] ? (<Options>
                         <input type='radio' id='dia1' name='day' value='1' />
                         <label for='dia1'>Dia 1</label>
                         <input type='radio' id='dia10' name='day' value='10' />
@@ -17,19 +17,19 @@ export default function Plans() {
                         <input type='radio' id='dia20' name='day' value='20' />
                         <label for='dia20'>Dia 20</label>
                     </div>
-            </Options>
+            </Options>) : null}
         </Box>
     );
 }
 
 const Box = styled.div`
     width: 90%;
-    height: 45px;
+    min-height: 10%;
     background-color: rgba(224, 209, 237, 0.62);
-    border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px ${({ opened }) => opened ? '0 0' : '5px 5px'};
     font-size: 18px;
     color: #4d65a8;
-    margin: 33px auto 7px;
+    margin: 0 auto 7px;
 `;
 
 const BoxHeader = styled.div`
@@ -44,7 +44,6 @@ const BoxHeader = styled.div`
 
 const Options = styled.div`
     width: 100%;
-    background-color: rgba(224, 209, 237, 0.62);
     border-radius: 0 0 5px 5px;
     margin-bottom: 7px;
     padding: 7px 12px 15px;

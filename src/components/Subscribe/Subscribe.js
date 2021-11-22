@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import { PlanBox, ImgBox, SubscribeButton } from '../../styles/ViewPlanStyles.js';
 import Plans from './Plans.js';
 import DeliveryDay from './DeliveryDay.js';
@@ -5,6 +7,18 @@ import Items from './Items.js';
 import styled from 'styled-components';
 
 export default function Subscribe() {
+    const { plan } = useParams();
+    const [opened, setOpened] = useState([false, true, false]);
+    const [planOption, setPlanOption] = useState(plan);
+    const [deliveryDay, setDeliveryDay] = useState('');
+    const [items, setItems] = useState([]);
+
+    function openBox(index) {
+        const changeOpened = [false, false, false];
+        changeOpened[index] = true;
+        setOpened(changeOpened);
+    }
+
     return (
         <Container>
             <WelcomeUser>Bom te ver por aqui, @User.</WelcomeUser>
@@ -15,9 +29,24 @@ export default function Subscribe() {
                 <NewImgBox>
                     <img src='https://github.com/driven-exercises/Projeto-GratiBox/blob/main/image03.jpg?raw=true' alt='Plano' />
                 </NewImgBox>
-                {/*<Plans />*/}
-                {/*<DeliveryDay />*/}
-                {<Items />}
+                <Plans
+                    opened={opened}
+                    openBox={openBox}
+                    planOption={planOption}
+                    setPlanOption={setPlanOption}
+                />
+                <DeliveryDay
+                    opened={opened}
+                    openBox={openBox}
+                    deliveryDay={deliveryDay}
+                    setDeliveryDay={setDeliveryDay}
+                />
+                <Items
+                    opened={opened}
+                    openBox={openBox}
+                    items={items}
+                    setItems={setItems}
+                />
             </Box>
             <NextButton>
                 Próximo
@@ -52,17 +81,19 @@ const Quote = styled.p`
 `
 
 const Box = styled(PlanBox)`
-    height: 100%;
+    height: 450px;
+    max-height: 100%;
     background-color: #ffffff;
     border-radius: 10px;
     margin-bottom: 0;
 `;
 
 const NewImgBox = styled(ImgBox)`
-    height: 45%;
+    height: 40%;
 `;
 
 const NextButton = styled(SubscribeButton)`
     width: 200px;
-    margin: 7px auto 0;
+    height: 40px;
+    margin: 7px auto 7px;
 `;

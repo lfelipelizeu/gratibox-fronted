@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { AiOutlineArrowDown as DownArrow } from 'react-icons/ai';
 
-export default function Plans() {
+export default function Items({ opened, openBox, items, setItems }) {
     return (
         <Box>
-            <BoxHeader>
+            <BoxHeader opened={opened[2]} onClick={() => openBox(2)}>
                 Quero receber
-                <DownArrow style={{ fontSize: '35px' }} />
+                {opened[2] ? null : <DownArrow style={{ fontSize: '35px' }} />}
             </BoxHeader>
-            <Options>
+           {opened[2] ? (<Options>
                 <FirstRow>
                     <input type='checkbox' id='chas' name='items' value='Chás' />
                     <label for='chas'>Chás</label>
@@ -19,19 +19,19 @@ export default function Plans() {
                     <input type='checkbox' id='produtos' name='items' value='Produtos organicos' />
                     <label for='produtos'>Produtos organicos</label>
                 </SecondRow>
-            </Options>
+            </Options>) : null}
         </Box>
     );
 }
 
 const Box = styled.div`
     width: 90%;
-    height: 45px;
+    min-height: 10%;
     background-color: rgba(224, 209, 237, 0.62);
-    border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px ${({ opened }) => opened ? '0 0' : '5px 5px'};
     font-size: 18px;
     color: #4d65a8;
-    margin: 33px auto 7px;
+    margin: 0 auto 7px;
 `;
 
 const BoxHeader = styled.div`
@@ -46,7 +46,6 @@ const BoxHeader = styled.div`
 
 const Options = styled.div`
     width: 100%;
-    background-color: rgba(224, 209, 237, 0.62);
     border-radius: 0 0 5px 5px;
     margin-bottom: 7px;
     padding: 7px 12px 15px;
