@@ -44,7 +44,7 @@ export default function Subscribe() {
         }
 
         const subscription = {
-            planOption,
+            plan: planOption,
             deliveryDay,
             items,
         };

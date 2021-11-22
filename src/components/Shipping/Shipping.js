@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import UserContext from '../../contexts/UserContexts.js';
+import NewSubscriptionContext from '../../contexts/NewSubscriptionContext.js';
+import { useHistory } from 'react-router-dom';
+import { subscribe } from '../../services/gratibox.js';
 import { PlanBox, ImgBox, SubscribeButton } from '../../styles/ViewPlanStyles.js';
 import States from './States.js';
 import styled from 'styled-components';
 
 export default function Shipping() {
+    const { user } = useContext(UserContext);
+    const { newSubscription, setNewSubscription } = useContext(NewSubscriptionContext);
     const [name, setName] = useState('');
     const [adress, setAdress] = useState('');
     const [zipcode, setZipcode] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState();
+    const history = useHistory();
 
     function zipcodeTyping (event) {
         const newValue = event.target.value;
@@ -20,7 +27,7 @@ export default function Shipping() {
         }
     }
 
-    function submitShipping(event) {
+    async function submitShipping(event) {
         event.preventDefault();
 
         if (!state) return alert('Selecione o estado!');
@@ -33,7 +40,18 @@ export default function Shipping() {
             state,
         };
 
-        console.log(shippingAdress);
+        const body = {
+            ...newSubscription,
+            shippingAdress,
+        }
+
+        try {
+            await subscribe(user.token, body);
+            alert('Plano assinado!');
+            return history.push('/');
+        } catch (error) {
+            return alert('Ocorreu algum erro!')
+        }
     }
 
     return (
