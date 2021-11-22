@@ -2,22 +2,30 @@ import styled from 'styled-components';
 import { AiOutlineArrowDown as DownArrow } from 'react-icons/ai';
 
 export default function Items({ opened, openBox, items, setItems }) {
+    function updateItems(clickedItem) {
+        if (items.some((item) => clickedItem === item)) {
+            setItems(items.filter((item) => item !== clickedItem));
+        } else {
+            setItems([...items, clickedItem]);
+        }
+    }
+
     return (
         <Box>
             <BoxHeader opened={opened[2]} onClick={() => openBox(2)}>
                 Quero receber
                 {opened[2] ? null : <DownArrow style={{ fontSize: '35px' }} />}
             </BoxHeader>
-           {opened[2] ? (<Options>
+           {opened[2] ? (<Options onChange={(event) => updateItems(event.target.value)}>
                 <FirstRow>
-                    <input type='checkbox' id='chas' name='items' value='Chás' />
-                    <label for='chas'>Chás</label>
-                    <input type='checkbox' id='incensos' name='items' value='Incensos' />
-                    <label for='incensos'>Incensos</label>
+                    <input type='checkbox' id='chas' name='items' value='Chás' defaultChecked={items.some((item) => item === 'Chás')} />
+                    <label htmlFor='chas'>Chás</label>
+                    <input type='checkbox' id='incensos' name='items' value='Incensos' defaultChecked={items.some((item) => item === 'Incensos')} />
+                    <label htmlFor='incensos'>Incensos</label>
                 </FirstRow>
                 <SecondRow>
-                    <input type='checkbox' id='produtos' name='items' value='Produtos organicos' />
-                    <label for='produtos'>Produtos organicos</label>
+                    <input type='checkbox' id='produtos' name='items' value='Produtos organicos' defaultChecked={items.some((item) => item === 'Produtos organicos')} />
+                    <label htmlFor='produtos'>Produtos organicos</label>
                 </SecondRow>
             </Options>) : null}
         </Box>
