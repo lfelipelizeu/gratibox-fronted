@@ -15,9 +15,9 @@ export default function Plans({ opened, openBox, planOption, setPlanOption, setD
                 {opened[0] ? null : <DownArrow style={{ fontSize: '35px' }} />}
             </BoxHeader>
             {opened[0] ?( <Options onChange={(event) => choosePlan(event.target.value)}>
-                    <input type='radio' id='semanal' name='plan' value='weekly' defaultChecked={planOption === 'weekly'} />
+                    <input type='radio' id='semanal' name='plan' value='Semanal' defaultChecked={planOption === 'Semanal'} />
                     <label htmlFor='semanal'>Semanal</label>
-                    <input type='radio' id='mensal' name='plan' value='monthly' defaultChecked={planOption === 'monthly'} />
+                    <input type='radio' id='mensal' name='plan' value='Mensal' defaultChecked={planOption === 'Mensal'} />
                     <label htmlFor='mensal'>Mensal</label>
             </Options>) : null}
         </Box>

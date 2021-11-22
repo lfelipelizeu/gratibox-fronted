@@ -14,7 +14,7 @@ export default function Subscribe() {
     const { user } = useContext(UserContext);
     const { setNewSubscription } = useContext(NewSubscriptionContext);
     const [opened, setOpened] = useState([false, true, false]);
-    const [planOption, setPlanOption] = useState(plan);
+    const [planOption, setPlanOption] = useState(plan === 'weekly' ? 'Semanal' : 'Mensal');
     const [deliveryDay, setDeliveryDay] = useState();
     const [items, setItems] = useState([]);
     const history = useHistory();
@@ -50,8 +50,9 @@ export default function Subscribe() {
         };
 
         setNewSubscription(subscription);
+        console.log(subscription);
 
-        return history.push('/shipping');
+        //return history.push('/shipping');
     }
 
     return (
