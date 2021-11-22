@@ -24,7 +24,7 @@ export default function App() {
                         <Route path='/signup' component={SignUp} exact />
                         <Route path='/login' component={LogIn} exact />
                         <Route path='/' component={ViewPlan} exact />
-                        <Route path='/subscribe/:plan' component={Subscribe} exact />
+                        <Route path='/subscribe' component={Subscribe} exact />
                         <Route path='/shipping' component={Shipping} exact />
                     </Switch>
                 </BrowserRouter>
