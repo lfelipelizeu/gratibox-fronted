@@ -56,7 +56,7 @@ export default function Subscribe() {
 
     return (
         <Container>
-            <WelcomeUser>Bom te ver por aqui, @User.</WelcomeUser>
+            <WelcomeUser>Bom te ver por aqui, {user?.name.split(' ')[0]}.</WelcomeUser>
             <Quote>
                 “Agradecer é arte de atrair coisas boas”
             </Quote>
