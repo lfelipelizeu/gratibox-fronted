@@ -2,13 +2,18 @@ import styled from 'styled-components';
 import { AiOutlineArrowDown as DownArrow } from 'react-icons/ai';
 
 export default function Plans({ opened, openBox, planOption, deliveryDay, setDeliveryDay }) {
+    function chooseDay(day) {
+        setDeliveryDay(day);
+        return openBox(2);
+    }
+
     return (
         <Box>
             <BoxHeader opened={opened[1]} onClick={() => openBox(1)}>
                 Entrega
                 {opened[1] ? null : <DownArrow style={{ fontSize: '35px' }} />}
             </BoxHeader>
-            {opened[1] ? (<Options onChange={(event) => setDeliveryDay(Number(event.target.value))}>
+            {opened[1] ? (<Options onChange={(event) => chooseDay(Number(event.target.value))}>
                         <input type='radio' id='dia1' name='day' value={1} defaultChecked={deliveryDay === 1} />
                         <label htmlFor='dia1'>{planOption === 'weekly' ? 'Segunda' : 'Dia 1'}</label>
                         <input type='radio' id='dia10' name='day' value={planOption === 'weekly' ? 3 : 10} defaultChecked={deliveryDay === 3 || deliveryDay === 10} />

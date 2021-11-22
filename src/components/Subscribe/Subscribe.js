@@ -69,6 +69,7 @@ export default function Subscribe() {
                     openBox={openBox}
                     planOption={planOption}
                     setPlanOption={setPlanOption}
+                    setDeliveryDay={setDeliveryDay}
                 />
                 <DeliveryDay
                     opened={opened}
