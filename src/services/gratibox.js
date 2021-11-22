@@ -27,9 +27,16 @@ function getStates() {
     return axios.get(`${BASE_URL}/states`);
 }
 
+function subscribe(token, body) {
+    const config = headerConfig(token);
+
+    return axios.post(`${BASE_URL}/subscribe`, body, config);
+}
+
 export {
     signUp,
     logIn,
     getPlan,
     getStates,
+    subscribe,
 };
