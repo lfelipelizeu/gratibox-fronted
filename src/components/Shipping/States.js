@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getStates } from '../../services/gratibox.js';
 import styled from 'styled-components';
 
-export default function States({ setState }) {
+export default function States({ setState, loading }) {
     const [states, setStates] = useState([]);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ export default function States({ setState }) {
     }, []);
 
     return (
-        <Box onChange={(event) => setState(Number(event.target.value))}>
+        <Box onChange={(event) => setState(Number(event.target.value))} disabled={loading}>
             <option defaultValue hidden>Estado</option>
             {states.map((state, index) => <option key={index} value={state.id}>{(state.uf)}</option>)}
         </Box>
@@ -28,4 +28,5 @@ const Box = styled.select`
     font-weight: 700;
     color: #4d65a8;
     padding-left: 12px;
+    filter: ${({ disabled }) => disabled ? 'brightness(0.9)' : 'none'};
 `;

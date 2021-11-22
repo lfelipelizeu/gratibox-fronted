@@ -15,6 +15,7 @@ export default function Shipping() {
     const [zipcode, setZipcode] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState();
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
@@ -22,7 +23,8 @@ export default function Shipping() {
             alert('Você não está logado!');
             return history.push('/home');
         }
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     function zipcodeTyping (event) {
         const newValue = event.target.value;
@@ -38,6 +40,7 @@ export default function Shipping() {
         event.preventDefault();
 
         if (!state) return alert('Selecione o estado!');
+        setLoading(true);
 
         const shippingAdress = {
             name,
@@ -58,6 +61,7 @@ export default function Shipping() {
             return history.push('/');
         } catch (error) {
             const status = error.response?.status;
+            setLoading(false);
 
             if (status === 400) return alert('Dados inválidos!');
             if (status === 401) {
@@ -86,6 +90,7 @@ export default function Shipping() {
                         placeholder='Nome completo'
                         value={name}
                         onChange={(event) => setName(event.target.value)}
+                        disabled={loading}
                         required
                     />
                     <Input
@@ -93,6 +98,7 @@ export default function Shipping() {
                         placeholder='Endereço de entrega'
                         value={adress}
                         onChange={(event) => setAdress(event.target.value)}
+                        disabled={loading}
                         required
                     />
                     <Input
@@ -101,6 +107,7 @@ export default function Shipping() {
                         maxLength='8'
                         value={zipcode}
                         onChange={(event) => zipcodeTyping(event)}
+                        disabled={loading}
                         required
                     />
                     <LastRow>
@@ -109,12 +116,13 @@ export default function Shipping() {
                             placeholder='Cidade'
                             value={city}
                             onChange={(event) => setCity(event.target.value)}
+                            disabled={loading}
                             required
                         />
-                        <States setState={setState} />
+                        <States setState={setState} loading={loading} />
                     </LastRow>
                 </Box>
-                <SubmitButton>
+                <SubmitButton disabled={loading}>
                     Finalizar
                 </SubmitButton>
             </form>
@@ -171,6 +179,7 @@ const Input = styled.input`
     display: block;
     margin: 0 auto 7px;
     padding-left: 12px;
+    filter: ${({ disabled }) => disabled ? 'brightness(0.9)' : 'none'};
 
     ::placeholder {
         font-weight: 700;
@@ -195,4 +204,5 @@ const SubmitButton = styled(SubscribeButton)`
     width: 200px;
     height: 40px;
     margin: 7px auto 7px;
+    filter: ${({ disabled }) => disabled ? 'brightness(0.8)' : 'none'};
 `;
