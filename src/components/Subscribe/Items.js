@@ -16,15 +16,15 @@ export default function Items({ opened, openBox, items, setItems }) {
                 Quero receber
                 {opened[2] ? null : <DownArrow style={{ fontSize: '35px' }} />}
             </BoxHeader>
-           {opened[2] ? (<Options onChange={(event) => updateItems(event.target.value)}>
+           {opened[2] ? (<Options onChange={(event) => updateItems(Number(event.target.value))}>
                 <FirstRow>
-                    <input type='checkbox' id='chas' name='items' value='Chás' defaultChecked={items.some((item) => item === 'Chás')} />
+                    <input type='checkbox' id='chas' name='items' value={1} defaultChecked={items.some((item) => item === 1)} />
                     <label htmlFor='chas'>Chás</label>
-                    <input type='checkbox' id='incensos' name='items' value='Incensos' defaultChecked={items.some((item) => item === 'Incensos')} />
+                    <input type='checkbox' id='incensos' name='items' value={2} defaultChecked={items.some((item) => item === 2)} />
                     <label htmlFor='incensos'>Incensos</label>
                 </FirstRow>
                 <SecondRow>
-                    <input type='checkbox' id='produtos' name='items' value='Produtos organicos' defaultChecked={items.some((item) => item === 'Produtos organicos')} />
+                    <input type='checkbox' id='produtos' name='items' value={3} defaultChecked={items.some((item) => item === 3)} />
                     <label htmlFor='produtos'>Produtos organicos</label>
                 </SecondRow>
             </Options>) : null}

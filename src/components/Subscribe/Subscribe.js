@@ -50,9 +50,8 @@ export default function Subscribe() {
         };
 
         setNewSubscription(subscription);
-        console.log(subscription);
 
-        //return history.push('/shipping');
+        return history.push('/shipping');
     }
 
     return (
