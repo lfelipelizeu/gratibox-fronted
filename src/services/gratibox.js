@@ -23,8 +23,13 @@ function getPlan(token) {
     return axios.get(`${BASE_URL}/plan`, config);
 }
 
+function getStates() {
+    return axios.get(`${BASE_URL}/states`);
+}
+
 export {
     signUp,
     logIn,
     getPlan,
+    getStates,
 };
