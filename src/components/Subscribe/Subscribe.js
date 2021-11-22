@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import NewSubscriptionContext from '../../contexts/NewSubscriptionContext.js';
+import { useHistory } from 'react-router-dom';
 import { PlanBox, ImgBox, SubscribeButton } from '../../styles/ViewPlanStyles.js';
 import Plans from './Plans.js';
 import DeliveryDay from './DeliveryDay.js';
@@ -8,15 +10,38 @@ import styled from 'styled-components';
 
 export default function Subscribe() {
     const { plan } = useParams();
+    const { setNewSubscription } = useContext(NewSubscriptionContext);
     const [opened, setOpened] = useState([false, true, false]);
     const [planOption, setPlanOption] = useState(plan);
-    const [deliveryDay, setDeliveryDay] = useState('');
+    const [deliveryDay, setDeliveryDay] = useState();
     const [items, setItems] = useState([]);
+    const history = useHistory();
 
     function openBox(index) {
         const changeOpened = [false, false, false];
         changeOpened[index] = true;
         setOpened(changeOpened);
+    }
+
+    function createSubscriptionObject() {
+        if (!deliveryDay) {
+            alert('Escolha o dia para a entrega!');
+            return openBox(1);
+        }
+        if (items.length === 0) {
+            alert('Escolha pelo menos 1 item para ser entregue!');
+            return openBox(2);
+        }
+
+        const subscription = {
+            planOption,
+            deliveryDay,
+            items,
+        };
+
+        setNewSubscription(subscription);
+
+        return history.push('/shipping');
     }
 
     return (
@@ -38,6 +63,7 @@ export default function Subscribe() {
                 <DeliveryDay
                     opened={opened}
                     openBox={openBox}
+                    planOption={planOption}
                     deliveryDay={deliveryDay}
                     setDeliveryDay={setDeliveryDay}
                 />
@@ -48,7 +74,7 @@ export default function Subscribe() {
                     setItems={setItems}
                 />
             </Box>
-            <NextButton>
+            <NextButton onClick={createSubscriptionObject}>
                 Próximo
             </NextButton>
         </Container>
