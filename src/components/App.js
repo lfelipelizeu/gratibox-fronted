@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import UserContext from '../contexts/UserContexts.js';
 import NewSubscriptionContext from '../contexts/NewSubscriptionContext.js';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import GlobalStyle from '../styles/GlobalStyle.js';
 import Home from './Home.js';
 import SignUp from './SignUp.js';
@@ -26,6 +26,7 @@ export default function App() {
                         <Route path='/' component={ViewPlan} exact />
                         <Route path='/subscribe' component={Subscribe} exact />
                         <Route path='/shipping' component={Shipping} exact />
+                        <Redirect to='/home' />
                     </Switch>
                 </BrowserRouter>
             </NewSubscriptionContext.Provider>
