@@ -8,6 +8,7 @@ import SignUp from './SignUp.js';
 import LogIn from './LogIn.js';
 import ViewPlan from './ViewPlan/ViewPlan.js';
 import Subscribe from './Subscribe/Subscribe.js';
+import Shipping from './Shipping/Shipping.js';
 
 export default function App() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -24,6 +25,7 @@ export default function App() {
                         <Route path='/login' component={LogIn} exact />
                         <Route path='/' component={ViewPlan} exact />
                         <Route path='/subscribe/:plan' component={Subscribe} exact />
+                        <Route path='/shipping' component={Shipping} exact />
                     </Switch>
                 </BrowserRouter>
             </NewSubscriptionContext.Provider>
