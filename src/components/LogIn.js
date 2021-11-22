@@ -49,6 +49,7 @@ export default function Home() {
             <Welcome>Bem vindo ao <strong>GratiBox</strong></Welcome>
             <FormBox onSubmit={submitLogIn}>
                 <Input
+                    className='email'
                     type='email'
                     placeholder='Email'
                     value={email}
@@ -57,6 +58,7 @@ export default function Home() {
                     required
                 />
                 <Input
+                    className='password'
                     type='password'
                     placeholder='Senha'
                     value={password}
