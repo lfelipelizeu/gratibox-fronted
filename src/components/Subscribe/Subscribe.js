@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import UserContext from '../../contexts/UserContexts.js';
 import NewSubscriptionContext from '../../contexts/NewSubscriptionContext.js';
 import { useHistory } from 'react-router-dom';
 import { PlanBox, ImgBox, SubscribeButton } from '../../styles/ViewPlanStyles.js';
@@ -10,12 +11,21 @@ import styled from 'styled-components';
 
 export default function Subscribe() {
     const { plan } = useParams();
+    const { user } = useContext(UserContext);
     const { setNewSubscription } = useContext(NewSubscriptionContext);
     const [opened, setOpened] = useState([false, true, false]);
     const [planOption, setPlanOption] = useState(plan);
     const [deliveryDay, setDeliveryDay] = useState();
     const [items, setItems] = useState([]);
     const history = useHistory();
+
+    useEffect(() => {
+        if (!user) {
+            alert('Você não está logado!');
+            return history.push('/home');
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     function openBox(index) {
         const changeOpened = [false, false, false];
