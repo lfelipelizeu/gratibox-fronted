@@ -5,7 +5,8 @@ import GlobalStyle from '../styles/GlobalStyle.js';
 import Home from './Home.js';
 import SignUp from './SignUp.js';
 import LogIn from './LogIn.js';
-import ViewPlan from './ViewPlan/ViewPlan';
+import ViewPlan from './ViewPlan/ViewPlan.js';
+import Subscribe from './Subscribe/Subscribe.js';
 
 export default function App() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -19,6 +20,7 @@ export default function App() {
                     <Route path='/signup' component={SignUp} exact />
                     <Route path='/login' component={LogIn} exact />
                     <Route path='/' component={ViewPlan} exact />
+                    <Route path='/subscribe/:plan' component={Subscribe} exact />
                 </Switch>
             </BrowserRouter>
         </UserContext.Provider>
