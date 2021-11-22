@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../contexts/UserContexts.js';
 import NewSubscriptionContext from '../../contexts/NewSubscriptionContext.js';
 import { useHistory } from 'react-router-dom';
@@ -8,7 +8,7 @@ import States from './States.js';
 import styled from 'styled-components';
 
 export default function Shipping() {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const { newSubscription, setNewSubscription } = useContext(NewSubscriptionContext);
     const [name, setName] = useState('');
     const [adress, setAdress] = useState('');
@@ -16,6 +16,13 @@ export default function Shipping() {
     const [city, setCity] = useState('');
     const [state, setState] = useState();
     const history = useHistory();
+
+    useEffect(() => {
+        if (!user) {
+            alert('Você não está logado!');
+            return history.push('/home');
+        }
+    });
 
     function zipcodeTyping (event) {
         const newValue = event.target.value;
@@ -50,7 +57,16 @@ export default function Shipping() {
             alert('Plano assinado!');
             return history.push('/');
         } catch (error) {
-            return alert('Ocorreu algum erro!')
+            const status = error.response?.status;
+
+            if (status === 400) return alert('Dados inválidos!');
+            if (status === 401) {
+                alert('Sessão inválida! Faça o login novamente.');
+                localStorage.removeItem('user');
+                setUser();
+                return history.push('/login');
+            }
+            return alert('Ocorreu algum erro!');
         }
     }
 
