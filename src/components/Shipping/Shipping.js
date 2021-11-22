@@ -8,7 +8,7 @@ export default function Shipping() {
     const [adress, setAdress] = useState('');
     const [zipcode, setZipcode] = useState('');
     const [city, setCity] = useState('');
-    const [state, setState] = useState('');
+    const [state, setState] = useState();
 
     function zipcodeTyping (event) {
         const newValue = event.target.value;
@@ -22,7 +22,9 @@ export default function Shipping() {
 
     function submitShipping(event) {
         event.preventDefault();
-        
+
+        if (!state) return alert('Selecione o estado!');
+
         const shippingAdress = {
             name,
             adress,
