@@ -23,6 +23,8 @@ export default function Shipping() {
             alert('Você não está logado!');
             return history.push('/home');
         }
+
+        if (!newSubscription) return history.push('/');
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -57,6 +59,7 @@ export default function Shipping() {
 
         try {
             await subscribe(user.token, body);
+            setNewSubscription();
             alert('Plano assinado!');
             return history.push('/');
         } catch (error) {
