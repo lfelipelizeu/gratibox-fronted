@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getStates } from '../../services/gratibox.js';
 import styled from 'styled-components';
 
-export default function States() {
+export default function States({ setState }) {
     const [states, setStates] = useState([]);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ export default function States() {
     }, []);
 
     return (
-        <Box>
+        <Box onChange={(event) => setState(Number(event.target.value))}>
             <option defaultValue hidden>Estado</option>
             {states.map((state, index) => <option key={index} value={state.id}>{(state.uf)}</option>)}
         </Box>

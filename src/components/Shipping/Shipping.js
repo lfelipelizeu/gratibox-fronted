@@ -1,15 +1,46 @@
+import { useState } from 'react';
 import { PlanBox, ImgBox, SubscribeButton } from '../../styles/ViewPlanStyles.js';
 import States from './States.js';
 import styled from 'styled-components';
 
 export default function Shipping() {
+    const [name, setName] = useState('');
+    const [adress, setAdress] = useState('');
+    const [zipcode, setZipcode] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+
+    function zipcodeTyping (event) {
+        const newValue = event.target.value;
+
+        if ((typeof(Number(newValue[newValue.length - 1])) === "number" && newValue[newValue.length - 1] !== " " && !isNaN(Number(newValue[newValue.length - 1]))) || newValue === "") {
+            setZipcode(newValue);
+        } else {
+            setZipcode(zipcode);
+        }
+    }
+
+    function submitShipping(event) {
+        event.preventDefault();
+        
+        const shippingAdress = {
+            name,
+            adress,
+            zipcode,
+            city,
+            state,
+        };
+
+        console.log(shippingAdress);
+    }
+
     return (
         <Container>
             <WelcomeUser>Bom te ver por aqui, @User.</WelcomeUser>
             <Quote>
                 “Agradecer é arte de atrair coisas boas”
             </Quote>
-            <form>
+            <form onSubmit={submitShipping}>
                 <Box>
                     <NewImgBox>
                         <img src='https://github.com/driven-exercises/Projeto-GratiBox/blob/main/image03.jpg?raw=true' alt='Plano' />
@@ -17,26 +48,34 @@ export default function Shipping() {
                     <Input
                         type='text'
                         placeholder='Nome completo'
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
                         required
                     />
                     <Input
                         type='text'
                         placeholder='Endereço de entrega'
+                        value={adress}
+                        onChange={(event) => setAdress(event.target.value)}
                         required
                     />
                     <Input
                         type='text'
                         placeholder='CEP'
                         maxLength='8'
+                        value={zipcode}
+                        onChange={(event) => zipcodeTyping(event)}
                         required
                     />
                     <LastRow>
                         <CityInput
                             type='text'
                             placeholder='Cidade'
+                            value={city}
+                            onChange={(event) => setCity(event.target.value)}
                             required
                         />
-                        <States />
+                        <States setState={setState} />
                     </LastRow>
                 </Box>
                 <SubmitButton>
