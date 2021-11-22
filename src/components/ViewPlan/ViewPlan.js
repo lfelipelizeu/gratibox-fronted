@@ -21,7 +21,7 @@ export default function ViewPlan() {
         getPlan(user.token)
             .then((response) => setPlanDetails(response.data))
             .catch((error) => {
-                if (error.response.status === 401 || error.response.status === 500) {
+                if (error.response?.status === 401 || error.response?.status === 500) {
                     alert('Sessão inválida! Por favor faça o login novamente!');
                     localStorage.removeItem('user');
                     setUser();
