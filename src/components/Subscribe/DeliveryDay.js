@@ -1,21 +1,21 @@
 import styled from 'styled-components';
 import { AiOutlineArrowDown as DownArrow } from 'react-icons/ai';
 
-export default function Plans({ opened, openBox, deliveryDay, setDeliveryDay }) {
+export default function Plans({ opened, openBox, planOption, deliveryDay, setDeliveryDay }) {
     return (
         <Box>
             <BoxHeader opened={opened[1]} onClick={() => openBox(1)}>
                 Entrega
                 {opened[1] ? null : <DownArrow style={{ fontSize: '35px' }} />}
             </BoxHeader>
-            {opened[1] ? (<Options>
-                        <input type='radio' id='dia1' name='day' value='1' />
-                        <label for='dia1'>Dia 1</label>
-                        <input type='radio' id='dia10' name='day' value='10' />
-                        <label for='dia10'>Dia 10</label>
+            {opened[1] ? (<Options onChange={(event) => setDeliveryDay(Number(event.target.value))}>
+                        <input type='radio' id='dia1' name='day' value={1} defaultChecked={deliveryDay === 1} />
+                        <label htmlFor='dia1'>{planOption === 'weekly' ? 'Segunda' : 'Dia 1'}</label>
+                        <input type='radio' id='dia10' name='day' value={planOption === 'weekly' ? 3 : 10} defaultChecked={deliveryDay === 3 || deliveryDay === 10} />
+                        <label htmlFor='dia10'>{planOption === 'weekly' ? 'Quarta' : 'Dia 10'}</label>
                     <div>
-                        <input type='radio' id='dia20' name='day' value='20' />
-                        <label for='dia20'>Dia 20</label>
+                        <input type='radio' id='dia20' name='day' value={planOption === 'weekly' ? 5 : 20} defaultChecked={deliveryDay === 5 || deliveryDay === 20} />
+                        <label htmlFor='dia20'>{planOption === 'weekly' ? 'Sexta' : 'Dia 20'}</label>
                     </div>
             </Options>) : null}
         </Box>
