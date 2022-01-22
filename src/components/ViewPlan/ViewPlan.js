@@ -13,10 +13,7 @@ export default function ViewPlan() {
     const history = useHistory();
 
     useEffect(() => {
-        if (!user) {
-            alert('Você não está logado!');
-            return history.push('/home');
-        }
+        if (!user) return history.push('/home');
 
         getPlan(user.token)
             .then((response) => setPlanDetails(response.data))
