@@ -45,7 +45,7 @@ export default function Home() {
     } 
 
     return (
-        <Containter>
+        <Container>
             <Welcome>Bem vindo ao <strong>GratiBox</strong></Welcome>
             <FormBox onSubmit={submitLogIn}>
                 <Input
@@ -70,12 +70,14 @@ export default function Home() {
                     Login
                 </LogInButton>
             </FormBox>
-            <SignUpButton disabled={loading}>Ainda não sou grato</SignUpButton>
-        </Containter>
+            <SignUpButton onClick={() => history.push('/signup')} disabled={loading}>
+                Ainda não sou grato
+            </SignUpButton>
+        </Container>
     );
 }
 
-const Containter = styled.section`
+const Container = styled.section`
     width: 80vw;
     max-width: 500px;
     height: 100vh;
