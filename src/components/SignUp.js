@@ -50,7 +50,7 @@ export default function Home() {
     }
 
     return (
-        <Containter>
+        <Container>
             <Welcome>Bem vindo ao <strong>GratiBox</strong></Welcome>
             <FormBox onSubmit={submitSignUp}>
                 <Input
@@ -91,11 +91,12 @@ export default function Home() {
                     Cadastrar
                 </Button>
             </FormBox>
-        </Containter>
+            <LogInButton onClick={() => history.push('/login')}>Já sou grato</LogInButton>
+        </Container>
     );
 }
 
-const Containter = styled.section`
+const Container = styled.section`
     width: 80vw;
     max-width: 500px;
     height: 100vh;
@@ -104,7 +105,7 @@ const Containter = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-`
+`;
 
 const Welcome = styled.h1`
     font-size: 28px;
@@ -151,3 +152,13 @@ const Button = styled.button`
     margin-top: 54px;
     filter: ${({ disabled }) => disabled ? 'brightness(0.9)' : 'none'};
 `;
+
+const LogInButton = styled.button`
+    width: 200px;
+    height: 45px;
+    border: none;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: transparent;
+`
