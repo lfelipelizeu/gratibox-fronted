@@ -14,20 +14,19 @@ export default function Home() {
     }, [user, history]);
 
     return (
-        <Containter>
+        <Container>
             <Welcome>Bem vindo ao <strong>GratiBox</strong></Welcome>
             <Description>Receba em casa um box com chás, produtos organicos, incensos e muito mais...</Description>
             <Image src='https://raw.githubusercontent.com/driven-exercises/Projeto-GratiBox/main/image05.webp' alt='Home' />
             <SignUpButton onClick={() => history.push('/signup')}>Quero começar</SignUpButton>
             <LogInButton onClick={() => history.push('/login')}>Já sou grato</LogInButton>
             <Footer />
-        </Containter>
+        </Container>
     );
 }
 
-const Containter = styled.section`
+const Container = styled.section`
     width: 80vw;
-    max-width: 500px;
     height: 100vh;
     margin: 0 auto;
     display: flex;
@@ -43,6 +42,10 @@ const Containter = styled.section`
         font-size: 18px;
         font-weight: 700;
     }
+
+    @media (min-width: 500px) {
+        width: 500px;
+    }
 `
 
 const Footer = styled.div`
@@ -53,6 +56,11 @@ const Footer = styled.div`
     bottom: 0;
     left: 0;
     z-index: -1;
+
+    @media (min-width: 500px) {
+        width: 500px;
+        left: calc(50% - 250px);
+    }
 `
 
 const Welcome = styled.h1`
@@ -74,6 +82,10 @@ const Description = styled.p`
 
 const Image = styled.img`
     width: 100vw;
+
+    @media (min-width: 500px) {
+        width: 100%;
+    }
 `;
 
 const SignUpButton = styled.button`
